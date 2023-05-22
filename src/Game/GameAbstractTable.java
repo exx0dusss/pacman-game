@@ -123,6 +123,7 @@ public final class GameAbstractTable extends AbstractTableModel {
             path1.hasFood(true);
             maze[centerRow][columns - 1] = path1;
 
+
             // Setting solid borders so the block looks like a one figure
             for (int row = 1; row < maze.length; row++) {
                 for (int column = 1; column < maze[row].length; column++) {

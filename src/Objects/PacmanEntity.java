@@ -3,15 +3,20 @@ package Objects;
 import Engine.MusicPlayer;
 import Game.GameTable;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public final class PacmanEntity extends Entity implements Resizable {
     // Sounds
     private final File eatFruit;
     private final File eatGhost;
+    private final File waka;
 
     private MusicPlayer soundPlayer;
+    private MusicPlayer wakaPlayer;
     // Animation
     private int arcAngle = 0;
     private int animationDirection = 1;
@@ -24,7 +29,7 @@ public final class PacmanEntity extends Entity implements Resizable {
     private int applesEaten = 0;
 
     // Bonuses
-    private boolean isImune = false;
+    private boolean isImmune = false;
     private boolean scoreX2 = false;
     private boolean areGhostsFrozen = false;
 
@@ -35,7 +40,11 @@ public final class PacmanEntity extends Entity implements Resizable {
 
         eatFruit = new File("src/sounds/pacman_eatfruit.wav");
         eatGhost = new File("src/sounds/pacman_eatghost.wav");
-
+        waka = new File("src/sounds/waka.wav");
+        try {
+            wakaPlayer = new MusicPlayer(waka);
+        } catch (Exception ignored) {
+        }
 
     }
 
@@ -116,7 +125,6 @@ public final class PacmanEntity extends Entity implements Resizable {
     public void move() {
         maze[row][column].hasPacman(false);
         switch (direction) {
-
             case UP -> {
                 try {
                     if (!maze[row - 1][column].isWall()) {
@@ -178,6 +186,15 @@ public final class PacmanEntity extends Entity implements Resizable {
     public void checkCollision() {
 
         if (maze[row][column].hasFood()) {
+            if (!wakaPlayer.isPlaying()) {
+                try {
+                    wakaPlayer = new MusicPlayer(waka);
+                    wakaPlayer.start();
+
+                } catch (Exception ignored) {
+
+                }
+            }
             maze[row][column].hasFood(false);
             if (scoreX2) {
                 table.setScore(table.getScore() + 2);
@@ -189,9 +206,11 @@ public final class PacmanEntity extends Entity implements Resizable {
         }
 
         if (maze[row][column].hasBonus()) {
+
             try {
                 soundPlayer = new MusicPlayer(eatFruit);
                 soundPlayer.start();
+
             } catch (Exception ignored) {
 
             }
@@ -229,7 +248,7 @@ public final class PacmanEntity extends Entity implements Resizable {
                 Thread currentThread = Thread.currentThread();
                 currentThread.interrupt();
                 ghost.setEaten(false);
-                
+
             }).start();
             table.setGhostsSpeed(ghostsDelay);
             table.setScore(table.getScore() + 20);
@@ -240,7 +259,7 @@ public final class PacmanEntity extends Entity implements Resizable {
         System.out.println("SPEED +50%!");
         int currentDelay = table.getInitialPacmanSpeed();
         new Thread(() -> {
-            setImune(true);
+            setImmune(true);
             table.setPacmanMoveDelay(currentDelay / 2);
             for (int i = 1; i <= 4; i++) {
                 try {
@@ -260,7 +279,7 @@ public final class PacmanEntity extends Entity implements Resizable {
     private void setImmune() {
         System.out.println("Immune to Ghosts!");
         new Thread(() -> {
-            setImune(true);
+            setImmune(true);
             for (int i = 1; i <= 5; i++) {
                 try {
                     Thread.sleep(1000);
@@ -268,7 +287,7 @@ public final class PacmanEntity extends Entity implements Resizable {
                     return;
                 }
             }
-            setImune(false);
+            setImmune(false);
             Thread currentThread = Thread.currentThread();
             currentThread.interrupt();
         }).start();
@@ -278,7 +297,7 @@ public final class PacmanEntity extends Entity implements Resizable {
         System.out.println("Can eat Ghosts!");
         int ghostDelay = table.getInitialGhostSpeed();
         new Thread(() -> {
-            setImune(true);
+            setImmune(true);
             table.setGhostsEatable(true);
             table.setGhostsSpeed(ghostDelay / 2);
             for (int i = 1; i <= 5; i++) {
@@ -288,7 +307,7 @@ public final class PacmanEntity extends Entity implements Resizable {
                     return;
                 }
             }
-            setImune(false);
+            setImmune(false);
             table.setGhostsEatable(false);
             table.setGhostsSpeed(ghostDelay);
             Thread currentThread = Thread.currentThread();
@@ -370,12 +389,12 @@ public final class PacmanEntity extends Entity implements Resizable {
         return applesEaten;
     }
 
-    public boolean isImune() {
-        return isImune;
+    public boolean isImmune() {
+        return isImmune;
     }
 
-    public void setImune(boolean imune) {
-        isImune = imune;
+    public void setImmune(boolean immune) {
+        isImmune = immune;
     }
 
     public boolean isScoreX2() {

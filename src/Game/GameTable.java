@@ -225,7 +225,7 @@ public class GameTable extends JTable {
         theme = new File("src/sounds/pacman_beginning.wav");
         themePlayer = new MusicPlayer(theme);
         themePlayer.start();
-        themePlayer.setVolume(0.2f);
+        themePlayer.setVolume(0.1f);
 
     }
 

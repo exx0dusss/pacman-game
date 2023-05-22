@@ -187,7 +187,7 @@ public class GhostEntity extends Entity implements Resizable {
 
     @Override
     public void checkCollision() {
-        if (maze[row][column].hasPacman() && !table.getPacman().isImune()) {
+        if (maze[row][column].hasPacman() && !table.getPacman().isImmune()) {
             table.getPacman().setHp(table.getPacman().getHp() - 1);
 //            System.out.println("Ghost hit Pacman!");
             try {

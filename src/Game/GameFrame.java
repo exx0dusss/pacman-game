@@ -192,23 +192,22 @@ public class GameFrame extends JFrame {
         rootPane.getActionMap().put("quit", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameTable.getThemePlayer().stop();
-                if (soundPlayer != null) {
-                    soundPlayer.stop();
-                }
-
                 stop();
                 try {
                     new MenuFrame();
                 } catch (Exception ignored) {
                 }
-                frame.dispose();
+                dispose();
             }
         });
 
     }
 
     public void stop() {
+        gameTable.getThemePlayer().stop();
+        if (soundPlayer != null) {
+            soundPlayer.stop();
+        }
         gameTable.getBatchUpdate().interrupt();
         for (Thread thread : gameTable.getThreadList()) {
             thread.interrupt();

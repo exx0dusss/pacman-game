@@ -33,7 +33,10 @@ public class MusicPlayer {
 
         }
     }
-
+    public boolean isPlaying() {
+        return clip.isRunning();
+    }
+    
     public void stop() {
         clip.stop();
     }

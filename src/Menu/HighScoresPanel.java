@@ -90,19 +90,8 @@ public class HighScoresPanel extends JPanel {
     }
 
     class HighScoresScrollPane extends JScrollPane {
-        static int WIDTH;
-        static int HEIGHT;
-        private final Dimension dimension;
-        private static int scrollbarWidth;
-
         public HighScoresScrollPane() {
             super(scoresList);
-            scrollbarWidth = this.getVerticalScrollBar().getPreferredSize().width;
-            WIDTH = MenuFrame.getMenuWidth() - scrollbarWidth;
-            HEIGHT = (MenuFrame.getMenuHeight() - (int) (upperPanel.getPreferredSize().getHeight() + 39));
-            dimension = new Dimension(WIDTH, HEIGHT);
-
-            this.setPreferredSize(dimension);
             this.setOpaque(false);
             this.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
             this.getVerticalScrollBar().setUnitIncrement(10);
@@ -116,7 +105,7 @@ public class HighScoresPanel extends JPanel {
                 @Override
                 protected void configureScrollBarColors() {
                     // Set the color of the track and thumb
-                    this.thumbColor = Core.getBlueColor();
+                    this.thumbColor = new Color(15, 30, 100);
                     this.trackColor = Color.black;
                 }
 
@@ -145,10 +134,6 @@ public class HighScoresPanel extends JPanel {
 
         }
 
-        public static int getScrollbarWidth() {
-            return scrollbarWidth;
-        }
-
     }
 
     public static JList<GameScore> getScoresList() {
@@ -173,7 +158,7 @@ class GameScoreLabel extends JLabel implements ListCellRenderer<GameScore> {
         Border border = new CompoundBorder(outer, margin);
         setText(String.format("Name: %10s, Score: %3s",
                 value.getPlayerName(), value.getResult()));
-        setPreferredSize(new Dimension(HighScoresScrollPane.WIDTH - HighScoresScrollPane.getScrollbarWidth() - 10, 60));
+        setPreferredSize(new Dimension(HighScoresScrollPane.WIDTH, 60));
         setBorder(border);
         setBackground(Core.getBlueColor());
         setFont(Core.getMainFont());

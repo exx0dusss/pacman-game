@@ -61,6 +61,7 @@ public final class GameAbstractTable extends AbstractTableModel {
             GameCell[][] maze = new GameCell[rows][columns];
             int times = Math.min(rows, columns) / 2;
 
+            // row borders
             for (int i = 0; i < rows; i++) {
                 GameCell wall = new GameCell();
                 wall.setColor(wallColor);
@@ -69,6 +70,7 @@ public final class GameAbstractTable extends AbstractTableModel {
                 maze[i][columns - 1] = wall;
             }
 
+            // column borders
             for (int j = 0; j < columns; j++) {
                 GameCell wall = new GameCell();
                 wall.setColor(wallColor);
@@ -77,6 +79,8 @@ public final class GameAbstractTable extends AbstractTableModel {
                 maze[rows - 1][j] = wall;
             }
 
+
+            // inner borders
             Random random = new Random();
             for (int i = 1; i < rows - 1; i++) {
                 for (int j = 1; j < columns - 1; j++) {
@@ -119,14 +123,13 @@ public final class GameAbstractTable extends AbstractTableModel {
             path1.hasFood(true);
             maze[centerRow][columns - 1] = path1;
 
-            // Setting solid borders so the block look like a one figure
+            // Setting solid borders so the block looks like a one figure
             for (int row = 1; row < maze.length; row++) {
                 for (int column = 1; column < maze[row].length; column++) {
                     if (maze[row][column].isWall()) {
                         Border newBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
 
                         if (column < columns - 1 && !maze[row][column + 1].isWall()) {
-                            Border cellBorder = maze[row][column].getCellBorder();
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
                                     BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLUE)
@@ -135,7 +138,6 @@ public final class GameAbstractTable extends AbstractTableModel {
                         }
 
                         if (!maze[row][column - 1].isWall()) {
-                            Border cellBorder = maze[row][column].getCellBorder();
 
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
@@ -145,7 +147,6 @@ public final class GameAbstractTable extends AbstractTableModel {
 
                         }
                         if (row < rows - 1 && !maze[row + 1][column].isWall()) {
-                            Border cellBorder = maze[row][column].getCellBorder();
 
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
@@ -156,7 +157,6 @@ public final class GameAbstractTable extends AbstractTableModel {
                         }
 
                         if (!maze[row - 1][column].isWall()) {
-                            Border cellBorder = maze[row][column].getCellBorder();
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
                                     BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLUE)

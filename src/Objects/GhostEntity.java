@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class GhostEntity extends Entity implements Resizable {
     private Color color;
-    File eatableGhost;
-    File eatenGhost;
+    private File eatableGhost;
+    private File eatenGhost;
     private BufferedImage image;
     private int frameX;
     private int frameY;

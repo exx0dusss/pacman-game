@@ -3,11 +3,11 @@ package Game;
 import javax.swing.*;
 
 public class GameTimer implements Runnable {
-    int minutes = 0;
-    int seconds = 0;
-    int hours = 0;
-    int delay = 1000;
-    JLabel label;
+    private int minutes = 0;
+    private int seconds = 0;
+    private int hours = 0;
+    private int delay = 1000;
+    private JLabel label;
 
     GameTimer(JLabel label) {
         this.label = label;

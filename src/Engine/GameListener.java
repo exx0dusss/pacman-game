@@ -43,7 +43,7 @@ public class GameListener extends KeyAdapter implements ActionListener {
                 out.close();
             } catch (IOException ignored) {
             }
-//            gameFrame.getResultPanel().getSubmitButton().setEnabled(false);
+            gameFrame.getResultPanel().getSubmitButton().setEnabled(false);
         }
 
         if (e.getSource() == gameFrame.getResultPanel().getRestartButton()) {

@@ -31,15 +31,7 @@ public class HighScoresPanel extends JPanel {
 
     public HighScoresPanel(MenuFrame parent) {
         this.parent = parent;
-        ArrayList<GameScore> gameScores = new ArrayList<GameScore>();
-
-        try (FileInputStream fileIn = new FileInputStream("src/data/HighScores.ser")) {
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            gameScores = (ArrayList<GameScore>) in.readObject();
-            in.close();
-            fileIn.close();
-        } catch (IOException | ClassNotFoundException ignored) {
-        }
+        ArrayList<GameScore> gameScores = loadData("src/data/HighScores.ser");
         if (gameScores != null) {
             Collections.sort(gameScores, (a, b) -> b.getResult() - a.getResult());
         }
@@ -74,6 +66,18 @@ public class HighScoresPanel extends JPanel {
         return resetButton;
     }
 
+    public ArrayList<GameScore> loadData(String path) {
+        ArrayList<GameScore> gameScores = new ArrayList<GameScore>();
+
+        try (FileInputStream fileIn = new FileInputStream(path)) {
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            gameScores = (ArrayList<GameScore>) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException | ClassNotFoundException ignored) {
+        }
+        return gameScores;
+    }
 
     public void reset() {
         try {

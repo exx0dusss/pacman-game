@@ -36,12 +36,11 @@ public class GameTableRenderer extends DefaultTableCellRenderer {
         // Border border = BorderFactory.createEmptyBorder(0, 0, 0, 0);
         component.setBorder(cell.getCellBorder());
         component.setText("");
+        component.setIcon(null);
+
         if (cell.hasFood()) {
             component.setIcon(food);
-        } else {
-            component.setIcon(null);
         }
-
         if (cell.hasBonus()) {
             component.setIcon(cell.getBonus());
         }

@@ -79,7 +79,7 @@ public class HighScoresPanel extends JPanel {
         return gameScores;
     }
 
-    public void reset() {
+    public void resetData() {
         try {
             new FileWriter("src/data/HighScores.ser", false).close();
         } catch (IOException e) {

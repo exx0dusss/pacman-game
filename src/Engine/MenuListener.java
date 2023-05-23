@@ -66,7 +66,7 @@ public class MenuListener implements ActionListener {
         }
 
         if (e.getSource() == buttonsPanel.getHighScoresPanel().getResetButton()) { // reset
-            buttonsPanel.getHighScoresPanel().reset();
+            buttonsPanel.getHighScoresPanel().resetData();
             frame.getMenuPanel().removePanel(buttonsPanel.getHighScoresPanel());
             frame.getMenuPanel().addPanel(buttonsPanel.getHighScoresPanel());
 //            System.out.println("Reset pressed");

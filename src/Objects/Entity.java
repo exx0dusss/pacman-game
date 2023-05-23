@@ -6,11 +6,14 @@ import Game.GameTable;
 import javax.swing.*;
 
 public abstract class Entity extends ImageIcon implements Runnable {
+
     // Time
     protected int animationDelay = 7;
+
     // Movement
     protected Direction direction = Direction.RIGHT;
     protected int angle = 0;
+    
     // Size
     protected int width, height;
     protected int row;

@@ -71,8 +71,6 @@ public class GhostEntity extends Entity implements Resizable {
 
     @Override
     public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-
-
         if (!table.areGhostsEatable()) {
             g.setColor(color);
             image = spriteSheet.getSubimage(frameX + imgPadX, frameY + imgPadY, frameWidth, frameHeight);

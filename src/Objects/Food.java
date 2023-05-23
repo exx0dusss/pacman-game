@@ -16,7 +16,7 @@ public class Food extends ImageIcon implements Resizable {
     }
 
     @Override
-    public void paintIcon(Component c, Graphics g, int x, int y) {
+    public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
         g.setColor(color);
         g.fillRect(x + width / divisor, y - height / (divisor * 2), width / divisor, height / divisor);
     }

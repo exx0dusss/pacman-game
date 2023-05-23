@@ -113,11 +113,28 @@ public class GameTable extends JTable {
                     new Thread(() -> {
                         while (!Thread.currentThread().isInterrupted()) {
                             if (!pacman.areGhostsFrozen()) {
-                                ghost.checkCollision();
                                 ghost.move();
-                                ghost.checkCollision();
                                 try {
                                     Thread.sleep(ghostsSpeed);
+                                } catch (InterruptedException e) {
+                                    Thread.currentThread().interrupt(); // Preserve the interrupt status
+                                    break; // or return; depending on your code structure
+                                }
+                            }
+
+                        }
+
+                    })
+            );
+            threadList.add(
+                    new Thread(() -> {
+                        while (!Thread.currentThread().isInterrupted()) {
+                            System.out.println("Running");
+                            if (!pacman.areGhostsFrozen()) {
+                                ghost.checkCollision();
+
+                                try {
+                                    Thread.sleep(10);
                                 } catch (InterruptedException e) {
                                     Thread.currentThread().interrupt(); // Preserve the interrupt status
                                     break; // or return; depending on your code structure

@@ -21,6 +21,7 @@ public class GhostEntity extends Entity implements Resizable {
     private BufferedImage spriteSheet;
     private int imgPadX;
     private int imgPadY;
+    private boolean move = true;
 
     private boolean eatable = false;
     private boolean isEaten = false;
@@ -104,84 +105,88 @@ public class GhostEntity extends Entity implements Resizable {
 
     @Override
     public void move() {
-        maze[row][column].hasEnemy(false);
-        boolean changeDirection = false;
-        switch (direction) {
-            case UP -> {
-                try {
-                    if (!maze[row - 1][column].isWall()) {
-                        row -= 1;
-                        angle = 90;
-                        frameX = 190;
-                        frameY = 0;
+        if (move) {
+
+
+            maze[row][column].hasEnemy(false);
+            boolean changeDirection = false;
+            switch (direction) {
+                case UP -> {
+                    try {
+                        if (!maze[row - 1][column].isWall()) {
+                            row -= 1;
+                            angle = 90;
+                            frameX = 190;
+                            frameY = 0;
+
+                        }
+                    } catch (Exception ignored) {
+                        maze[row][column].hasPacman(false);
+                        row = 0;
 
                     }
-                } catch (Exception ignored) {
-                    maze[row][column].hasPacman(false);
-                    row = 0;
+
+                }
+                case DOWN -> {
+                    try {
+                        if (!maze[row + 1][column].isWall()) {
+                            row += 1;
+                            angle = 270;
+                            frameX = 0;
+                            frameY = 190;
+                        }
+                    } catch (Exception ignored) {
+                        maze[row][column].hasPacman(false);
+                        row = maze.length - 1;
+
+                    }
+
+                }
+                case LEFT -> {
+                    try {
+                        if (!maze[row][column - 1].isWall()) {
+                            column -= 1;
+                            angle = 180;
+                            frameX = 190;
+                            frameY = 190;
+
+                        }
+
+                    } catch (Exception ignored) {
+                        maze[row][column].hasPacman(false);
+                        column = maze.length - 1;
+
+                    }
+
+                }
+                case RIGHT -> {
+                    try {
+                        if (!maze[row][column + 1].isWall()) {
+                            column += 1;
+                            angle = 0;
+                            frameX = 0;
+                            frameY = 0;
+                        }
+                    } catch (Exception ignored) {
+                        maze[row][column].hasPacman(false);
+                        column = 0;
+
+                    }
 
                 }
 
             }
-            case DOWN -> {
-                try {
-                    if (!maze[row + 1][column].isWall()) {
-                        row += 1;
-                        angle = 270;
-                        frameX = 0;
-                        frameY = 190;
-                    }
-                } catch (Exception ignored) {
-                    maze[row][column].hasPacman(false);
-                    row = maze.length - 1;
 
-                }
-
+            maze[row][column].hasEnemy(true);
+            maze[row][column].setEnemy(this);
+            Random random = new Random();
+            int randomNumber = random.nextInt(4) + 1;
+            switch (randomNumber) {
+                case 1 -> direction = Direction.UP;
+                case 2 -> direction = Direction.DOWN;
+                case 3 -> direction = Direction.LEFT;
+                case 4 -> direction = Direction.RIGHT;
             }
-            case LEFT -> {
-                try {
-                    if (!maze[row][column - 1].isWall()) {
-                        column -= 1;
-                        angle = 180;
-                        frameX = 190;
-                        frameY = 190;
-
-                    }
-
-                } catch (Exception ignored) {
-                    maze[row][column].hasPacman(false);
-                    column = maze.length - 1;
-
-                }
-
-            }
-            case RIGHT -> {
-                try {
-                    if (!maze[row][column + 1].isWall()) {
-                        column += 1;
-                        angle = 0;
-                        frameX = 0;
-                        frameY = 0;
-                    }
-                } catch (Exception ignored) {
-                    maze[row][column].hasPacman(false);
-                    column = 0;
-
-                }
-
-            }
-
-        }
-
-        maze[row][column].hasEnemy(true);
-        maze[row][column].setEnemy(this);
-        Random random = new Random();
-        int randomNumber = random.nextInt(4) + 1;
-        switch (randomNumber) {
-            case 1 -> direction = Direction.UP;
-            case 2 -> direction = Direction.DOWN;
-            case 3 -> direction = Direction.LEFT;
-            case 4 -> direction = Direction.RIGHT;
         }
     }
 
@@ -190,11 +195,13 @@ public class GhostEntity extends Entity implements Resizable {
         if (maze[row][column].hasPacman() && !table.getPacman().isImmune()) {
             table.getPacman().setHp(table.getPacman().getHp() - 1);
 //            System.out.println("Ghost hit Pacman!");
+            move = false;
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // Preserve the interrupt status
             }
+            move = true;
         }
     }
 

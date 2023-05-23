@@ -17,7 +17,6 @@ public class MenuListener implements ActionListener {
     public MenuListener(MenuFrame frame) {
         this.frame = frame;
 
-//        System.out.println("Frame: " + frame);
 //        System.out.println("Main listener created!");
     }
 

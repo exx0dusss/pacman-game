@@ -14,7 +14,6 @@ public final class Core {
     private static final Color blueColor;
     private static Font mainFont;
     private static MenuFrame menuFrame;
-    private static GameFrame gameFrame;
     private static final ImageIcon icon;
 
     static {
@@ -42,17 +41,7 @@ public final class Core {
 
     }
 
-    public static void createGameFrame(int rows, int columns, int UNIT_SIZE) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new GameFrame(rows, columns, UNIT_SIZE);
-            } catch (Exception ignored) {
-            }
-
-        });
-    }
-
-
+ 
     public static Color getBlueColor() {
         return blueColor;
     }

@@ -124,7 +124,7 @@ public final class GameAbstractTable extends AbstractTableModel {
             maze[centerRow][columns - 1] = path1;
 
 
-            // Setting solid borders so the block looks like a one figure
+            // Setting solid borders so the blocks look like a one figure
             for (int row = 1; row < maze.length; row++) {
                 for (int column = 1; column < maze[row].length; column++) {
                     if (maze[row][column].isWall()) {
@@ -134,25 +134,20 @@ public final class GameAbstractTable extends AbstractTableModel {
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
                                     BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLUE)
-
                             );
                         }
 
                         if (!maze[row][column - 1].isWall()) {
-
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
                                     BorderFactory.createMatteBorder(0, 1, 0, 0, Color.BLUE)
-
                             );
 
                         }
                         if (row < rows - 1 && !maze[row + 1][column].isWall()) {
-
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
                                     BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLUE)
-
                             );
 
                         }
@@ -161,7 +156,6 @@ public final class GameAbstractTable extends AbstractTableModel {
                             newBorder = BorderFactory.createCompoundBorder(
                                     newBorder,
                                     BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLUE)
-
                             );
 
                         }

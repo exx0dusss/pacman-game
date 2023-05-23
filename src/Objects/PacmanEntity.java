@@ -357,6 +357,7 @@ public final class PacmanEntity extends Entity implements Resizable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
+            System.out.println(1);
             animate();
             try {
                 Thread.sleep(animationDelay);

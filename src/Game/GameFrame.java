@@ -49,9 +49,11 @@ public class GameFrame extends JFrame {
         this.rows = rows;
         this.columns = columns;
         this.UNIT_SIZE = UNIT_SIZE;
+
         // Music
         death = new File("src/sounds/pacman_death.wav");
         win = new File("src/sounds/pacman_intermission.wav");
+
         // Timer
         JLabel timerLabel = new JLabel();
         timerLabel.setForeground(Color.black);
@@ -122,6 +124,7 @@ public class GameFrame extends JFrame {
         layeredPane.add(gameTable, Integer.valueOf(0));
         layeredPane.setBorder(BorderFactory.createEmptyBorder());
         layeredPane.setFocusable(false);
+
         // Frame
         this.setTitle("Pacman");
         this.setLayout(new BorderLayout());
@@ -165,9 +168,6 @@ public class GameFrame extends JFrame {
                     }
                     score = gameTable.getScore();
                     downPanel.repaint();
-                    for (Thread thread : gameTable.getThreadList()) {
-                        thread.interrupt();
-                    }
                     stop();
 
                 }
@@ -183,6 +183,7 @@ public class GameFrame extends JFrame {
             rootPane.revalidate();
 
         });
+        
         // Start updating
         batchUpdate.start();
 //         CTRL + SHIFT + Q

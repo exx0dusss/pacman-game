@@ -9,7 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.io.*;
 import java.util.ArrayList;
 
-public class GameListener extends KeyAdapter implements ActionListener {
+public class GameListener implements ActionListener {
     private final GameFrame gameFrame;
 
     public GameListener(GameFrame frame) {
@@ -28,7 +28,8 @@ public class GameListener extends KeyAdapter implements ActionListener {
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 gameScores = (ArrayList<GameScore>) in.readObject();
                 in.close();
-            } catch (IOException | ClassNotFoundException ignored) {
+            } catch (IOException | ClassNotFoundException e1) {
+                System.out.println("Error reading ser file");
             }
 
             // Add GameScore to the Object
@@ -41,7 +42,8 @@ public class GameListener extends KeyAdapter implements ActionListener {
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 out.writeObject(gameScores);
                 out.close();
-            } catch (IOException ignored) {
+            } catch (IOException e1) {
+                System.out.println("Error writing ser file");
             }
             gameFrame.getResultPanel().getSubmitButton().setEnabled(false);
         }

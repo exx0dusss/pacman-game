@@ -362,8 +362,8 @@ public final class PacmanEntity extends Entity implements Resizable {
             try {
                 Thread.sleep(animationDelay);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // Preserve the interrupt status
-                return; // or return; depending on your code structure
+                Thread.currentThread().interrupt();
+                return;
             }
         }
     }

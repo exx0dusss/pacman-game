@@ -197,7 +197,7 @@ public class GhostEntity extends Entity implements Resizable {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // Preserve the interrupt status
+                Thread.currentThread().interrupt();
             }
             move = true;
         }
@@ -211,8 +211,8 @@ public class GhostEntity extends Entity implements Resizable {
             try {
                 Thread.sleep(animationDelay);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // Preserve the interrupt status
-                break; // or return; depending on your code structure
+                Thread.currentThread().interrupt();
+                break;
             }
         }
     }

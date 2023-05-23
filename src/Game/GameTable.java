@@ -117,8 +117,8 @@ public class GameTable extends JTable {
                                 try {
                                     Thread.sleep(ghostsSpeed);
                                 } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt(); // Preserve the interrupt status
-                                    break; // or return; depending on your code structure
+                                    Thread.currentThread().interrupt();
+                                    break;
                                 }
                             }
 
@@ -136,8 +136,8 @@ public class GameTable extends JTable {
                                 try {
                                     Thread.sleep(10);
                                 } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt(); // Preserve the interrupt status
-                                    break; // or return; depending on your code structure
+                                    Thread.currentThread().interrupt();
+                                    break;
                                 }
                             }
 
@@ -226,7 +226,7 @@ public class GameTable extends JTable {
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt(); // Preserve the interrupt status
+                    Thread.currentThread().interrupt();
                 }
             }
 
